@@ -17,7 +17,7 @@ hbs.registerPartials(partialsPath)
 app.get('',(req,res)=>{
     return res.render('index', {
         name: "Paula Hansa",
-        title: "Welcome to my blog!"
+        title: "Welcome to My Blog!"
     })
 })
 
