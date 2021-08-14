@@ -14,9 +14,9 @@ router.get("/", users);
 router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", logout);
-router.getProfile("/profile", getProfile);
+router.get("/profile", getProfile);
 router.put("/profile", updateProfile);
-router.deleteAccount("/delete", deleteAccount);
+router.delete("/delete", deleteAccount);
 router.post("/toggle-account-status/:id", toggleAccountStatus);
 
 module.exports = router;

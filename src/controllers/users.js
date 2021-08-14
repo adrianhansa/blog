@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const sendToken = require("../utils/sendToken");
 
 const register = async (req, res) => {
   try {
@@ -30,6 +31,7 @@ const register = async (req, res) => {
       password: passwordHashed,
     });
     //send the token
+    sendToken(user, 200, res);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
