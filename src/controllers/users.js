@@ -72,7 +72,7 @@ const users = async (req, res) => {
 
 const deleteAccount = async (req, res) => {
   try {
-    const userDeleted = await User.findByIdAndDelete(req.user);
+    const userDeleted = await User.findByIdAndDelete(req.user.id);
     if (!userDeleted)
       return res.status(404).json({ message: "User not found" });
     res.status(200).json(userDeleted);
@@ -83,7 +83,9 @@ const deleteAccount = async (req, res) => {
 
 const getProfile = async (req, res) => {
   try {
-    //
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -97,9 +99,41 @@ const toggleAccountStatus = async (req, res) => {
   }
 };
 
-const updateProfile = async (req, res) => {
+const toggleAdminStatus = async (req, res) => {
   try {
     //
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const updateProfile = async (req, res) => {
+  try {
+    const { fullName, email, password, passwordVerify } = req.body;
+    const user = await User.findById(req.user.id);
+    if (!user) return res(404).json({ message: "User not found" });
+    if (email !== user.email) {
+      const existingUser = await User.findOne({ email });
+      if (existingUser)
+        return res.status(400).json({ message: "Email already in use." });
+      if (!password || password.length < 6) {
+        const user = await User.findByIdAndUpdate(
+          req.user.id,
+          { fullName, email },
+          { new: true }
+        ).select("-password");
+        res.status(200).json(user);
+      }
+      if (password > 6 && password === passwordVerify) {
+        const passwordHashed = await bcrypt.hash(password, 10);
+        const user = await User.findByIdAndUpdate(
+          req.user.id,
+          { fullName, password: passwordHashed, email },
+          { new: true }
+        ).select("-password");
+        res.status(200).json(user);
+      }
+    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -112,6 +146,7 @@ module.exports = {
   users,
   deleteAccount,
   toggleAccountStatus,
+  toggleAdminStatus,
   getProfile,
   updateProfile,
 };
