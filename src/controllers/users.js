@@ -39,7 +39,15 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    //
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.status(400).json({ message: "Invalid email/password" });
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    const passwordVerified = await bcrypt.compare(password, user.password);
+    if (!passwordVerified)
+      return res.status(400).json({ message: "Invalid email/password" });
+    sendToken(user, 200, res);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -55,7 +63,8 @@ const logout = async (req, res) => {
 
 const users = async (req, res) => {
   try {
-    //
+    const users = await User.find().select("-password");
+    res.status(200).json(users);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -63,7 +72,10 @@ const users = async (req, res) => {
 
 const deleteAccount = async (req, res) => {
   try {
-    //
+    const userDeleted = await User.findByIdAndDelete(req.user);
+    if (!userDeleted)
+      return res.status(404).json({ message: "User not found" });
+    res.status(200).json(userDeleted);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
