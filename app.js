@@ -9,6 +9,10 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors({ origin: ["http://localhost:3000"], httpOnly: true }));
 
+const userRoutes = require("./src/routes/userRoutes");
+
+app.use("/api/users", userRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 mongoose
@@ -20,6 +24,6 @@ mongoose
   })
   .then(() => {
     console.log("Connected to mongodb Atlas.");
-    app.listen(PORT, () => console.log(`Server listeening on port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
   })
   .catch((error) => console.log(error));
