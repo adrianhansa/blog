@@ -9,5 +9,5 @@ module.exports = (user, statusCode, res) => {
     },
     process.env.JWT_SECRET
   );
-  res.status(statusCode).header("token", token).send();
+  res.status(statusCode).header("token", token).json({ isAuth: true });
 };

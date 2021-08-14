@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const auth = require("../middlewares/auth");
+const admin = require("../middlewares/admin");
 
 const {
   register,
@@ -20,7 +21,7 @@ router.get("/logout", auth, logout);
 router.get("/profile", auth, getProfile);
 router.put("/profile", auth, updateProfile);
 router.delete("/delete", auth, deleteAccount);
-router.post("/toggle-account-status/:id", toggleAccountStatus);
-router.post("/toggle-admin-status/:id", toggleAdminStatus);
+router.put("/toggle-account-status/:id", admin, toggleAccountStatus);
+router.put("/toggle-admin-status/:id", admin, toggleAdminStatus);
 
 module.exports = router;

@@ -55,7 +55,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    //
+    res.status(200).header("token", null).json({ isAuth: false });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -93,7 +93,16 @@ const getProfile = async (req, res) => {
 
 const toggleAccountStatus = async (req, res) => {
   try {
-    //
+    if (req.user.isAdmin) {
+      const { isActive } = req.body;
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { isActive },
+        { new: true }
+      );
+      if (!user) return res.status(404).json({ message: "User not found" });
+      res.status(200).json(user);
+    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -101,7 +110,16 @@ const toggleAccountStatus = async (req, res) => {
 
 const toggleAdminStatus = async (req, res) => {
   try {
-    //
+    if (req.user.isAdmin) {
+      const { isAdmin } = req.body;
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { isAdmin },
+        { new: true }
+      );
+      if (!user) return res.status(404).json({ message: "User not found" });
+      res.status(200).json(user);
+    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
