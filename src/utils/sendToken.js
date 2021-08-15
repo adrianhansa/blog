@@ -6,6 +6,8 @@ module.exports = (user, statusCode, res) => {
       id: user._id,
       isActive: user.isActive,
       isAdmin: user.isAdmin,
+      fullName: user.fullName,
+      email: user.email,
     },
     process.env.JWT_SECRET
   );
