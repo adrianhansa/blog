@@ -14,5 +14,5 @@ module.exports = (user, statusCode, res) => {
   res
     .status(statusCode)
     .header("token", token)
-    .json({ isAuth: true, token, fullName, email });
+    .json({ isAuth: true, token, fullName: user.fullName, email: user.email });
 };
