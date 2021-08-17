@@ -55,7 +55,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    res.status(200).header("token", null).json({ isAuth: false });
+    res.status(200).json({ isAuth: false });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
