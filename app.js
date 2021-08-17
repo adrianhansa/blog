@@ -10,8 +10,10 @@ app.use(morgan("tiny"));
 app.use(cors({ origin: ["http://localhost:3000"], httpOnly: true }));
 
 const userRoutes = require("./src/routes/userRoutes");
+const postRoutes = require("./src/routes/postRoutes");
 
 app.use("/api/users", userRoutes);
+app.use("api/posts", postRoutes);
 
 const PORT = process.env.PORT || 5000;
 

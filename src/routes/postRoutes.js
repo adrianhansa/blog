@@ -8,11 +8,11 @@ const {
   deletePost,
 } = require("../controllers/posts");
 
-router.get("/all-posts", getAllPosts);
+router.post("/", createPost);
+router.get("/all", getAllPosts);
 router.get("/my-posts", getMyPosts);
-router.get("/posts/:slug", getPost);
-router.post("/posts", createPost);
-router.put("/posts/:slug", updatePost);
-router.delete("/posts/:slug", deletePost);
+router.get("/:slug", getPost);
+router.put("/:slug", updatePost);
+router.delete("/:slug", deletePost);
 
 module.exports = router;
