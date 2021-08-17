@@ -11,8 +11,5 @@ module.exports = (user, statusCode, res) => {
     },
     process.env.JWT_SECRET
   );
-  res
-    .status(statusCode)
-    .header("token", token)
-    .json({ isAuth: true, token, fullName: user.fullName, email: user.email });
+  res.status(statusCode).header("token", token).json({ isAuth: true, token });
 };
