@@ -17,7 +17,7 @@ const {
 router.get("/", users);
 router.post("/register", register);
 router.post("/login", login);
-router.get("/logout", auth, logout);
+router.get("/logout", logout);
 router.get("/profile", auth, getProfile);
 router.put("/profile", auth, updateProfile);
 router.delete("/delete", auth, deleteAccount);
