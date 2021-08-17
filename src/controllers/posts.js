@@ -16,14 +16,6 @@ const getMyPosts = async (req, res) => {
   }
 };
 
-const getPostsByAuthor = async (req, res) => {
-  try {
-    //
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-
 const createPost = async (req, res) => {
   try {
     //
@@ -59,7 +51,6 @@ const deletePost = async (req, res) => {
 module.exports = {
   getAllPosts,
   getMyPosts,
-  getPostsByAuthor,
   createPost,
   getPost,
   updatePost,

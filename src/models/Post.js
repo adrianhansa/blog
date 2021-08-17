@@ -8,6 +8,7 @@ const postSchema = new mongoose.Schema(
       ref: "users",
     },
     title: { type: String, required: true, trim: true },
+    slug: { type: String, required: true, unique: true },
     content: { type: String, required: true, default: "" },
     published: { type: Boolean, default: false },
   },
