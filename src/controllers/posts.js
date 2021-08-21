@@ -44,6 +44,18 @@ const getPost = async (req, res) => {
     const slug = req.params.slug;
     const post = await Post.findOne({ slug });
     if (!post) return res.status(404).json({ message: "Post not found" });
+    res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const getMyPost = async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const post = await Post.findOne({ slug, author: req.user.id });
+    if (!post) return res.status(404).json({ message: "Post not found" });
+    res.status(200).json(post);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
