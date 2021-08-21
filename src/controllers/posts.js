@@ -96,6 +96,7 @@ module.exports = {
   getMyPosts,
   createPost,
   getPost,
+  getMyPost,
   updatePost,
   deletePost,
 };
