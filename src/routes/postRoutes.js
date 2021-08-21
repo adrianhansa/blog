@@ -9,10 +9,10 @@ const {
   deletePost,
 } = require("../controllers/posts");
 
-router.get("/posts/:slug", getPost);
 router.post("/posts", auth, createPost);
-router.get("/posts/all", getAllPosts);
-router.get("/posts/my-posts", auth, getMyPosts);
+router.get("/posts", getAllPosts);
+router.get("/posts/:slug", getPost);
+router.get("/admin/posts", auth, getMyPosts);
 router.put("/posts/:slug", auth, updatePost);
 router.delete("/posts/:slug", auth, deletePost);
 
