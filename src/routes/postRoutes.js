@@ -16,7 +16,7 @@ router.get("/posts", getAllPosts);
 router.get("/posts/:slug", getPost);
 router.get("/admin/posts", auth, getMyPosts);
 router.get("/admin/posts/:slug", auth, getMyPost);
-router.put("/admin/posts/:slug",togglePublishPost)
+router.put("/admin/posts/:slug",auth,togglePublishPost)
 router.put("/posts/:slug", auth, updatePost);
 router.delete("/posts/:slug", auth, deletePost);
 
