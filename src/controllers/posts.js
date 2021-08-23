@@ -3,7 +3,7 @@ const slugify = require("slugify");
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find({published:true});
     res.status(200).json(posts);
   } catch (error) {
     return res.status(500).json({ message: error.message });
