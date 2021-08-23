@@ -61,6 +61,16 @@ const getMyPost = async (req, res) => {
   }
 };
 
+const togglePublishPost = async (req,res)=>{
+  try{
+    const post = await Post.findOneAndUpdate({slug:req.params.slug,author:req.user.id},{publish:req.body.publish},{new:true})
+    if(!post) return res.status(404).json({message:"Post not found"})
+    res.status(200).json(post)
+  }catch(error){
+    return res.status(500).json({message:error.message})
+  }
+}
+
 const updatePost = async (req, res) => {
   try {
     const { title, content, published } = req.body;
@@ -99,4 +109,5 @@ module.exports = {
   getMyPost,
   updatePost,
   deletePost,
+  togglePublishPost
 };
