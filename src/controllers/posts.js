@@ -63,7 +63,7 @@ const getMyPost = async (req, res) => {
 
 const togglePublishPost = async (req,res)=>{
   try{
-    const post = await Post.findOneAndUpdate({slug:req.params.slug,author:req.user.id},{publish:req.body.published},{new:true})
+    const post = await Post.findOneAndUpdate({slug:req.params.slug,author:req.user.id},{published:req.body.published},{new:true})
     if(!post) return res.status(404).json({message:"Post not found"})
     res.status(200).json(post)
   }catch(error){
