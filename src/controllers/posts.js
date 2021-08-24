@@ -76,12 +76,12 @@ const updatePost = async (req, res) => {
     const { title, content, published } = req.body;
     if (!title) return res.status(400).json({ message: "Title is required" });
     const slug = slugify(title, { lower: true, remove: /[*+~.()'"?!:@]/g });
-    const post = await Post.findOneAndUpdate({author:req.user.id,slug:req.body.slug},
+    const post = await Post.findOneAndUpdate({author:req.user.id,slug:req.params.slug},
       { title, content, published, slug },
       { new: true }
     );
     if (!post) return res.status(404).json({ message: "Post not found." });
-    res.status(200).json(updatedPost);
+    res.status(200).json(post);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
