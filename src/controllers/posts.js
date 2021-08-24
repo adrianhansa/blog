@@ -76,7 +76,7 @@ const updatePost = async (req, res) => {
     const { title, content, published } = req.body;
     if (!title) return res.status(400).json({ message: "Title is required" });
     const slug = slugify(title, { lower: true, remove: /[*+~.()'"?!:@]/g });
-    const post = await Post.findOneAndUpdate({author:req.user.id,slug},
+    const post = await Post.findOneAndUpdate({author:req.user.id,slug:req.body.slug},
       { title, content, published, slug },
       { new: true }
     );
