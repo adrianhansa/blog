@@ -10,6 +10,7 @@ const commentSchema = new mongoose.Schema(
     name: { type: String, required: true, trim: true, maxLength: 50 },
     email: { type: String, required: true },
     content: { type: String, required: true },
+    approved: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
