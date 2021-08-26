@@ -32,7 +32,7 @@ const getComments = async (req, res) => {
   }
 };
 
-const toggleApproveStatus = async (req, res) => {
+const toggleApprovedStatus = async (req, res) => {
   try {
     //
   } catch (error) {

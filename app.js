@@ -11,9 +11,11 @@ app.use(cors({ origin: ["http://localhost:3000"], httpOnly: true }));
 
 const userRoutes = require("./src/routes/userRoutes");
 const postRoutes = require("./src/routes/postRoutes");
+const commentRoutes = require("./src/routes/commentRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api", postRoutes);
+app.use("/api", commentRoutes);
 
 const PORT = process.env.PORT || 5000;
 
